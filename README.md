@@ -92,15 +92,16 @@ docker compose up -d --build
 | Method | Endpoint | Description |
 |---|---|---|
 | `GET` | `/health` | System health, active processors, Redis/DB status |
-| `POST` | `/start_camera/{camera_id}` | Start processing a camera stream |
-| `POST` | `/stop_camera/{camera_id}` | Stop a specific camera processor |
-| `GET` | `/status` | List all active processors and their state |
-| `POST` | `/start_video` | Process a pre-recorded video file |
+| `GET` | `/processors` | List all active processor IDs and their state |
+| `POST` | `/start/camera/{camera_id}` | Start processing a camera RTSP stream |
+| `POST` | `/stop/camera/{camera_id}` | Stop a specific camera processor |
+| `POST` | `/start/video` | Process a pre-recorded video file |
+| `POST` | `/stop/video/{processor_id}` | Stop a running video processor |
 
 ### Example: Start a Camera
 
 ```bash
-curl -X POST http://localhost:5001/start_camera/cam1 \
+curl -X POST http://localhost:5001/start/camera/cam1 \
   -H "Content-Type: application/json" \
   -d '{"rtsp_url": "rtsp://username:password@192.168.1.100:554/", "counting_line_x": 960}'
 ```
